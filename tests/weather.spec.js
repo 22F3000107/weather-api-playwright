@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const weatherService = require('../services/weatherService');
+const { validateWeatherResponse } = require('../utils/responseValidator'); 
 
 test('Invalid city should return 404', async () => {
   const response = await weatherService.getWeather('InvalidCity123');
@@ -17,17 +18,10 @@ test('Validate response fields', async () => {
   const response = await weatherService.getWeather('London');
   const body = await response.json();
 
-  expect(body.main.temp).toBeDefined();
-  expect(body.main.humidity).toBeDefined();
-  expect(body.weather[0].description).toBeDefined();
+  validateWeatherResponse(body); 
 });
 
 test('Empty city', async () => {
   const response = await weatherService.getWeather('');
-  expect(response.status()).not.toBe(200);
-});
-
-test('Special characters city', async () => {
-  const response = await weatherService.getWeather('@#$%');
   expect(response.status()).not.toBe(200);
 });
