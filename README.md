@@ -98,6 +98,11 @@ npx playwright test --reporter=html
 
 ---
 
+## 📊 Allure Report
+
+![Allure Report](./Screenshot/Allure-report.png)
+
+
 ##  Notes
 
 * `.env` file is not committed for security reasons
